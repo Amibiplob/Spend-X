@@ -2,14 +2,13 @@ import React from "react";
 import {
   NavbarContent,
   NavbarItem,
-  Link,
-  Button,
   NavbarMenu,
   NavbarMenuItem,
   Tooltip,
 } from "@nextui-org/react";
+import Link from "next/link";
 
-export default function Navitem() {
+export default function Navitem({ pathname }) {
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -22,44 +21,71 @@ export default function Navitem() {
     "Help & Feedback",
     "Log Out",
   ];
-  const navItems = ["Profile", "Dashboard", "Activity"];
+  const navItems = [
+    { href: "/", name: "Home" },
+    { href: "/blog", name: "Blog" },
+    { href: "/login", name: " Log in" },
+    {
+      href: "/register",
+      name: "Register",
+      className:
+        "p-2 rounded text-white bg-gradient-to-r from-blue-800 to-indigo-900",
+    },
+  ];
 
   return (
     <>
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        {navItems.map((item, index) => (
-          <NavbarItem key={index}>
+      <NavbarContent className="hidden sm:flex" justify="end">
+        {navItems.map(({ href, name, className }, index) => (
+          <NavbarItem
+            key={index}
+            className={
+              pathname == href
+                ? "py-1 bg-blue-500 hover:bg-blue-300 rounded-md text-black"
+                : "py-1  rounded-md hover:bg-blue-300 text-black"
+            }
+          >
             <Tooltip
               showArrow={true}
               placement="bottom"
-              content={item}
+              content={name}
               classNames={{
                 base: "shadow-xl text-black bg-neutral-400",
                 arrow: "bg-neutral-400 dark:bg-white",
               }}
             >
-              <Link color="foreground" href="#">
-                {item}
+              <Link href={href} className={className ? className : "px-2 py-1"}>
+                {name}
               </Link>
             </Tooltip>
           </NavbarItem>
         ))}
       </NavbarContent>
-      <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Tooltip showArrow={true} placement="bottom" content="Login">
-            <Link href="#">Login</Link>
+      <NavbarContent className="sm:hidden flex" justify="end">
+        <NavbarItem className="p-2 bg-blue-300 rounded-md hover:bg-blue-500 text-black">
+          <Tooltip
+            showArrow={true}
+            placement="bottom"
+            content="login"
+            classNames={{
+              base: "shadow-xl text-black bg-neutral-400",
+              arrow: "bg-neutral-400 dark:bg-white",
+            }}
+          >
+            <Link href="/login">login</Link>
           </Tooltip>
         </NavbarItem>
-        <NavbarItem>
-          <Tooltip showArrow={true} placement="bottom" content="Register">
-            <Button
-              className="text-white bg-gradient-to-r from-blue-800 to-indigo-900"
-              as={Link}
-              href="#"
-            >
-              Register
-            </Button>
+        <NavbarItem className="p-2 bg-blue-300 rounded-md hover:bg-blue-500 text-black">
+          <Tooltip
+            showArrow={true}
+            placement="bottom"
+            content="register"
+            classNames={{
+              base: "shadow-xl text-black bg-neutral-400",
+              arrow: "bg-neutral-400 dark:bg-white",
+            }}
+          >
+            <Link href="/register">Register</Link>
           </Tooltip>
         </NavbarItem>
       </NavbarContent>

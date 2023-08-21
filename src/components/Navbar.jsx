@@ -4,26 +4,14 @@ import {
   Navbar,
   NavbarBrand,
   NavbarContent,
-  Link,
   NavbarMenuToggle,
 } from "@nextui-org/react";
 import Navitem from "./Navitem";
-
-export default function App() {
+import { usePathname } from "next/navigation";
+import Link from "next/link";
+export default function NavbarPage() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+  const pathname = usePathname();
 
   return (
     <Navbar isBordered onMenuOpenChange={setIsMenuOpen}>
@@ -42,7 +30,7 @@ export default function App() {
         </NavbarBrand>
       </NavbarContent>
 
-      <Navitem />
+      <Navitem pathname={pathname} />
     </Navbar>
   );
 }
