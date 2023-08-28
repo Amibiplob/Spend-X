@@ -1,7 +1,17 @@
+"use client";
 import Link from "next/link";
 import React from "react";
+import { useForm } from "react-hook-form";
 
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => console.log(data);
+  console.log(errors);
+
   return (
     <div className="bg-gradient-to-r from-slate-200 to-slate-400">
       <div className="mx-auto flex w-full max-w-sm flex-col gap-3 py-10">
@@ -10,26 +20,43 @@ const Login = () => {
           <p className="text-sm">Log in to access your account</p>
         </div>
         <hr />
-        <form className="flex flex-col gap-3">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
           <div>
             <label className="block mb-2 text-sm">Email Address</label>
             <input
               placeholder="Your Email Address"
               type="email"
+              {...register("Email", {
+                required: "Email Address is required",
+                pattern: /^\S+@\S+$/i,
+              })}
               className="w-full px-3 py-2  dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 border-2 hover:border-teal-600 focus:border-teal-800 p-2 rounded-md text-sm transition ease-in-out hover:-translate-y-1 hover:scale-105 focus:-translate-y-1 focus:scale-105 duration-75"
             />
+            {errors.Email && (
+              <p className="text-red-500 text-sm pl-1">
+                {errors.Email.message}
+              </p>
+            )}
           </div>
           <div>
             <label className="block mb-2 text-sm">Password</label>
-            <div className="form-control">
+            <div>
               <input
                 placeholder="Your Password"
                 type="password"
+                {...register("Password", {
+                  required: "Password is required",
+                })}
                 className="w-full px-3 py-2  dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 border-2 hover:border-teal-600 focus:border-teal-800 p-2 rounded-md text-sm transition ease-in-out hover:-translate-y-1 hover:scale-105 focus:-translate-y-1 focus:scale-105 duration-75"
               />
+              {errors.Password && (
+                <p className="text-red-500 text-sm pl-1">
+                  {errors.Password.message}
+                </p>
+              )}
             </div>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-end">
             <Link
               href="reset-password"
               className="text-sm text-blue-500 hover:underline"
