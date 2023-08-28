@@ -10,7 +10,7 @@ const Register = () => {
        formState: { errors },
      } = useForm();
      const onSubmit = (data) => console.log(data);
-     console.log(errors);
+
   return (
     <div className="bg-gradient-to-r from-slate-200 to-slate-400">
       <div className="mx-auto flex w-full max-w-sm flex-col gap-3 py-10">
