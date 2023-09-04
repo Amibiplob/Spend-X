@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const resetPassword = () => {
+const ResetPassword = () => {
   const {
     register,
     handleSubmit,
@@ -54,4 +54,4 @@ const resetPassword = () => {
   );
 };
 
-export default resetPassword;
+export default ResetPassword;
